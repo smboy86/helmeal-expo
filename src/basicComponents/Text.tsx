@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react';
 import { Text, TextStyle, TextProps } from 'react-native';
-
 interface IProps extends TextProps {
   size?: number;
   color?: string;
@@ -28,8 +27,13 @@ export default function (props: IProps) {
 
   // 1) font 전역 설정 Type B : 위와 같은 폰트가 아닐때
   const fontStyle = {
-    // fontFamily: 'netmarble',
-    // fontWeight: light ? '300' : bold ? '700' : '500',
+    // fontFamily: 'NotoSansKR',
+    // fontWeight: light ? '300' : bold ? '700' : '400',
+    fontFamily: light
+      ? 'NotoSansKRLight'
+      : bold
+      ? 'NotoSansKRBold'
+      : 'NotoSansKRMedium',
   };
 
   // if (lineHeight !== undefined) {

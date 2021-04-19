@@ -4,12 +4,13 @@ import {
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 import Feather from 'react-native-vector-icons/Feather';
+import { Platform, View } from 'react-native';
 
 import { BottomTabParamList } from './types';
-import { Platform, View } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 import BottomIcon from '../basicComponents/BottomIcon';
-import HomeScreen from '../screens/LoginHomeScreen';
+import HomeScreen from '../screens/HomeScreen';
+import Colors from '../constants/Colors';
+import { AntDesign } from '@expo/vector-icons';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -64,13 +65,14 @@ export function BottomTabNavigator() {
         name='Home'
         component={HomeScreen}
         options={{
-          // tabBarIcon: ({ focused }) => (
-          //   <BottomIcon
-          //     focused={focused}
-          //     icon={require('../assets/images/ico-home.png')}
-          //     iconOn={require('../assets/images/ico-home-on.png')}
-          //   />
-          // ),
+          tabBarIcon: ({ focused }) => (
+            <AntDesign name='home' size={32} color='#FC5C42' />
+            // <BottomIcon
+            //   focused={focused}
+            //   icon={require('../assets/images/ico-home.png')}
+            //   iconOn={require('../assets/images/ico-home-on.png')}
+            // />
+          ),
           tabBarLabel: 'HOME',
         }}
       />

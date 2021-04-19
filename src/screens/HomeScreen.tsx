@@ -22,7 +22,7 @@ function LoginHomeScreen({ navigation, route }) {
     <Container>
       <ContainerWithScroll safe>
         <Box>
-          <Text>aaa</Text>
+          <Text>홈 입니다..?</Text>
         </Box>
       </ContainerWithScroll>
     </Container>
