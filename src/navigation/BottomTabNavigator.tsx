@@ -56,7 +56,7 @@ export function BottomTabNavigator() {
         labelStyle: {
           fontSize: 8,
           fontWeight: 'bold',
-          fontFamily: 'netmarble',
+          fontFamily: 'NotoSansKRBold',
         },
         activeTintColor: '#fff',
         inactiveTintColor: '#fff',

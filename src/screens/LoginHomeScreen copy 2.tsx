@@ -13,7 +13,6 @@ import { useDispatch } from 'react-redux';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import firebase from 'firebase';
-import axios from 'axios';
 
 import Box from '../basicComponents/Box';
 import Colors from '../constants/Colors';
@@ -32,8 +31,8 @@ function HomeScreen({ navigation, route }) {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = React.useState(true);
 
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    expoClientId:
+  const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
+    clientId:
       '812549016667-etebbl16to70n1gsfoagumittsduottt.apps.googleusercontent.com',
   });
 
@@ -42,44 +41,51 @@ function HomeScreen({ navigation, route }) {
   }, []);
 
   React.useEffect(() => {
-    console.log('asdfasdf ');
+    console.log('000000000');
     if (response?.type === 'success') {
-      const { authentication } = response;
+      console.log('1111  response :::: ', response);
+      const { id_token } = response.params;
 
-      axios
-        .get('https://www.googleapis.com/userinfo/v2/me', {
-          headers: {
-            Authorization: `Bearer ${authentication?.accessToken}`,
-          },
-        })
-        .then((res) => {
-          console.log('##### succes ', res.data);
-          /*
-            {
-              "email": "smboy86@gmail.com",
-              "family_name": "박",
-              "given_name": "성민",
-              "id": "106842724698032136484",
-              "locale": "ko",
-              "name": "박성민",
-              "picture": "https://lh6.googleusercontent.com/-LXWeT9t0lpg/AAAAAAAAAAI/AAAAAAAAAME/AMZuucljUSjtWaLeez5tuTcZGLiZp6tg_Q/s96-c/photo.jpg",
-              "verified_email": true,
-            }
-          */
-          Alert.alert(
-            '',
-            `안녕하세요! ${res.data.name}님 가입을 환영합니다.`,
-            [
-              {
-                text: '확인',
-                onPress: () => dispatch(login({ isLogin: true })),
-              },
-            ],
-            { cancelable: false }
-          );
-        })
-        .catch((error) => {
-          console.error('##### errr ', error);
+      const credential = firebase.auth.GoogleAuthProvider.credential(id_token);
+      console.log('2 - 11111  credential :::: ', credential);
+      console.log('2 - 22222  credential :::: ', credential.accessToken);
+      console.log('2 - 33333  credential :::: ', credential.idToken);
+
+      // 사용자 정보 조회
+      console.log('2 - 444444  credential :::: ', credential.idToken);
+      // fetch('https://www.googleapis.com/userinfo/v2/me', {
+      // fetch(
+      //   'https://oauth2.googleapis.com/tokeninfo?id_token=' +
+      //     credential.idToken,
+      //   {
+      //     // headers: { Authorization: `Bearer ${credential.idToken}` },
+      //   }
+      // )
+      //   .then((response) => {
+      //     console.log('33333 유저 정보 조회 성공 :: ', response);
+      //   })
+      //   .catch((err) => {
+      //     console.log('eeerrrr  ', err);
+      //   });
+
+      // fetch('https://www.googleapis.com/userinfo/v2/me', {
+      //   headers: { Authorization: `Bearer ${credential.idToken}` },
+      // })
+      fetch(
+        `https://oauth2.googleapis.com/tokeninfo?id_token=${credential.idToken}`,
+        {
+          headers: { Authorization: `Bearer ${credential.idToken}` },
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => console.log('####  333333    :: ', data));
+
+      // 회원가입 처리
+      firebase
+        .auth()
+        .signInWithCredential(credential)
+        .then(() => {
+          console.log('44444  회원가입 완료 ');
         });
     }
   }, [response]);
@@ -104,23 +110,29 @@ function HomeScreen({ navigation, route }) {
             style={{
               paddingTop: 94,
             }}>
-            <Button
+            <Btn
               disabled={!request}
-              onPress={() => Alert.alert('', '[dev] 애플 로그인')}
+              title='Login'
+              onPress={() => {
+                promptAsync();
+              }}
+            />
+            <Button
+              disabled={true}
+              onPress={() => {
+                promptAsync();
+              }}
+              // onPress={null}
               fill
               label={'카카오톡 아이디 로그인'}
               style={{ marginBottom: 8 }}></Button>
             <Button
-              disabled={!request}
               onPress={() => Alert.alert('', '[dev] 애플 로그인')}
               fill
               label={'애플 아이디 로그인'}
               style={{ marginBottom: 8 }}></Button>
             <Button
-              disabled={!request}
-              onPress={() => {
-                promptAsync();
-              }}
+              onPress={() => Alert.alert('', '[dev] 구글 로그인')}
               fill
               label={'구글 아이디 로그인'}></Button>
           </Box>

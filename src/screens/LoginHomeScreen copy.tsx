@@ -1,19 +1,14 @@
 import * as React from 'react';
-import {
-  Alert,
-  Image,
-  Platform,
-  Pressable,
-  View,
-  Button as Btn,
-} from 'react-native';
+import { Alert, Image, Platform, Pressable, View } from 'react-native';
 import * as Linking from 'expo-linking';
 import { useDispatch } from 'react-redux';
 
 import * as WebBrowser from 'expo-web-browser';
-import * as Google from 'expo-auth-session/providers/google';
-import firebase from 'firebase';
-import axios from 'axios';
+import {
+  makeRedirectUri,
+  ResponseType,
+  useAuthRequest,
+} from 'expo-auth-session';
 
 import Box from '../basicComponents/Box';
 import Colors from '../constants/Colors';
@@ -22,65 +17,66 @@ import LoadingBlur from '../basicComponents/LoadingBlur';
 import Text from '../basicComponents/Text';
 import Button from '../basicComponents/Button';
 import Layout from '../constants/Layout';
+import TextNanum from '../basicComponents/TextNanum';
 import Container from '../basicComponents/Container';
 import BoxPressable from '../basicComponents/BoxPressable';
 import { login } from '../store/slices/TempSlice';
 
+// Endpoint
 WebBrowser.maybeCompleteAuthSession();
+
+const useProxy = true;
+const redirectUri = makeRedirectUri({
+  useProxy,
+});
+
+const discovery = {
+  // authorizationEndpoint: '/oauth/authorize?client_id={REST_API_KEY}&redirect_uri={REDIRECT_URI}&response_type=code',
+  authorizationEndpoint: 'https://kauth.kakao.com/oauth/authorize',
+  tokenEndpoint: 'https://kauth.kakao.com/oauth/token',
+};
 
 function HomeScreen({ navigation, route }) {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = React.useState(true);
 
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    expoClientId:
-      '812549016667-etebbl16to70n1gsfoagumittsduottt.apps.googleusercontent.com',
-  });
+  const [request, response, promptAsync] = useAuthRequest(
+    {
+      clientId: '63803fa965cb7986298f76f973554e89',
+      // There are no scopes so just pass an empty array
+      scopes: ['profile', 'account_email'],
+      usePKCE: false,
+      // For usage in managed apps using the proxy
+      redirectUri,
+      // responseType: ResponseType.Code,
+      responseType: ResponseType.Code,
+    },
+    discovery
+  );
 
   React.useEffect(() => {
     setIsLoading(false);
   }, []);
 
   React.useEffect(() => {
-    console.log('asdfasdf ');
     if (response?.type === 'success') {
-      const { authentication } = response;
-
-      axios
-        .get('https://www.googleapis.com/userinfo/v2/me', {
-          headers: {
-            Authorization: `Bearer ${authentication?.accessToken}`,
-          },
-        })
-        .then((res) => {
-          console.log('##### succes ', res.data);
-          /*
-            {
-              "email": "smboy86@gmail.com",
-              "family_name": "박",
-              "given_name": "성민",
-              "id": "106842724698032136484",
-              "locale": "ko",
-              "name": "박성민",
-              "picture": "https://lh6.googleusercontent.com/-LXWeT9t0lpg/AAAAAAAAAAI/AAAAAAAAAME/AMZuucljUSjtWaLeez5tuTcZGLiZp6tg_Q/s96-c/photo.jpg",
-              "verified_email": true,
-            }
-          */
-          Alert.alert(
-            '',
-            `안녕하세요! ${res.data.name}님 가입을 환영합니다.`,
-            [
-              {
-                text: '확인',
-                onPress: () => dispatch(login({ isLogin: true })),
-              },
-            ],
-            { cancelable: false }
-          );
-        })
-        .catch((error) => {
-          console.error('##### errr ', error);
-        });
+      console.log('111  login response  ::: ', response);
+      const { code } = response.params;
+      fetch('https://kapi.kakao.com' + '/oauth/token', {
+        method: 'POST',
+        headers: {
+          // Accept: 'application/json',
+          // Authorization: 'Bearer ' + code,
+          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+        },
+        body: `grant_type=authorization_code&client_id=63803fa965cb7986298f76f973554e89&${'http://127.0.0.1:19000'}=&code=${code}`,
+      }).then((res) => {
+        console.log('로그인 사용자 정보...??? :: ', JSON.stringify(res));
+        Alert.alert('', `로그인 성공 사용자 정보 :: ${JSON.stringify(res)}`);
+      });
+    } else {
+      console.log('222   login response  ::: ', response);
+      Alert.alert('', JSON.stringify(response));
     }
   }, [response]);
 
@@ -105,22 +101,22 @@ function HomeScreen({ navigation, route }) {
               paddingTop: 94,
             }}>
             <Button
-              disabled={!request}
-              onPress={() => Alert.alert('', '[dev] 애플 로그인')}
+              onPress={() =>
+                promptAsync({
+                  useProxy: true,
+                })
+              }
+              // onPress={null}
               fill
               label={'카카오톡 아이디 로그인'}
               style={{ marginBottom: 8 }}></Button>
             <Button
-              disabled={!request}
               onPress={() => Alert.alert('', '[dev] 애플 로그인')}
               fill
               label={'애플 아이디 로그인'}
               style={{ marginBottom: 8 }}></Button>
             <Button
-              disabled={!request}
-              onPress={() => {
-                promptAsync();
-              }}
+              onPress={() => Alert.alert('', '[dev] 구글 로그인')}
               fill
               label={'구글 아이디 로그인'}></Button>
           </Box>

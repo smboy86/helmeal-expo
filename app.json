@@ -2,6 +2,7 @@
   "expo": {
     "name": "helmeal",
     "slug": "helmeal",
+    "scheme": "com.helmeal",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -17,7 +18,13 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "com.helmeal",
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.812549016667-jq4f16o1iuuvd0trgruvikc8e34mjm2n"
+        }
+      },
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "adaptiveIcon": {
