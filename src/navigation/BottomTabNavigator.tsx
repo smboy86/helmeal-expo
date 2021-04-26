@@ -5,12 +5,16 @@ import {
 } from '@react-navigation/bottom-tabs';
 import Feather from 'react-native-vector-icons/Feather';
 import { Platform, View } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 
 import { BottomTabParamList } from './types';
 import BottomIcon from '../basicComponents/BottomIcon';
 import HomeScreen from '../screens/HomeScreen';
 import Colors from '../constants/Colors';
-import { AntDesign } from '@expo/vector-icons';
+import { IcoUser, IcoRoutine, IcoHome } from '../constants/Svgs';
+import Box from '../basicComponents/Box';
+import Text from '../basicComponents/Text';
+import Layout from '../constants/Layout';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -37,11 +41,11 @@ export function BottomTabNavigator() {
       tabBarOptions={{
         style: {
           height: Platform.select({
-            ios: 80,
+            ios: 82,
             android: 80,
           }),
           paddingTop: Platform.select({
-            ios: 10,
+            ios: 8,
             android: 0,
           }),
           paddingBottom: Platform.select({
@@ -54,84 +58,61 @@ export function BottomTabNavigator() {
         },
         showLabel: true,
         labelStyle: {
-          fontSize: 8,
+          fontSize: 12,
           fontWeight: 'bold',
           fontFamily: 'NotoSansKRBold',
         },
-        activeTintColor: '#fff',
-        inactiveTintColor: '#fff',
+        activeTintColor: Colors.default.tint,
+        inactiveTintColor: Colors.default.gray,
       }}>
       <BottomTab.Screen
         name='Home'
         component={HomeScreen}
         options={{
           tabBarIcon: ({ focused }) => (
-            <AntDesign name='home' size={32} color='#FC5C42' />
-            // <BottomIcon
-            //   focused={focused}
-            //   icon={require('../assets/images/ico-home.png')}
-            //   iconOn={require('../assets/images/ico-home-on.png')}
-            // />
-          ),
-          tabBarLabel: 'HOME',
-        }}
-      />
-      {/* <BottomTab.Screen
-        name="Calendar"
-        component={CalendarScreen}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <BottomIcon
-              focused={focused}
-              icon={require('../assets/images/ico-calendar.png')}
-              iconOn={require('../assets/images/ico-calendar-on.png')}
+            <IcoHome
+              width={28}
+              height={28}
+              fill={focused ? Colors.default.tint : Colors.default.gray}
             />
           ),
-          tabBarLabel: 'CALENDAR',
+          tabBarLabel: '홈',
         }}
       />
       <BottomTab.Screen
-        name="Pond"
-        component={PondScreen}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <BottomIcon
-              focused={focused}
-              icon={require('../assets/images/ico-pond.png')}
-              iconOn={require('../assets/images/ico-pond-on.png')}
-            />
-          ),
-          tabBarLabel: 'POND',
-        }}
-      />
-      <BottomTab.Screen
-        name="Goods"
+        name='Routine'
         component={HomeScreen}
         options={{
           tabBarIcon: ({ focused }) => (
-            <BottomIcon
-              focused={focused}
-              icon={require('../assets/images/ico-goods.png')}
-              iconOn={require('../assets/images/ico-goods-on.png')}
-            />
+            <Box>
+              <IcoRoutine
+                width={28}
+                height={28}
+                fill={focused ? Colors.default.tint : Colors.default.gray}
+              />
+            </Box>
           ),
-          tabBarLabel: 'Goods',
+          tabBarLabel: '루틴시작',
         }}
       />
       <BottomTab.Screen
-        name="Settings"
-        component={SettingsScreen}
+        name='MyPage'
+        component={HomeScreen}
         options={{
           tabBarIcon: ({ focused }) => (
-            <BottomIcon
-              focused={focused}
-              icon={require('../assets/images/ico-more.png')}
-              iconOn={require('../assets/images/ico-more-on.png')}
-            />
+            <Box>
+              <IcoUser
+                // width={Layout.window.width * 0.045}
+                // height={Layout.window.width * 0.053}
+                width={28}
+                height={28}
+                fill={focused ? Colors.default.tint : Colors.default.gray}
+              />
+            </Box>
           ),
-          tabBarLabel: 'Settings',
+          tabBarLabel: '마이페이지',
         }}
-      /> */}
+      />
     </BottomTab.Navigator>
   );
 }

@@ -42,7 +42,6 @@ function HomeScreen({ navigation, route }) {
   }, []);
 
   React.useEffect(() => {
-    console.log('asdfasdf ');
     if (response?.type === 'success') {
       const { authentication } = response;
 
@@ -106,7 +105,7 @@ function HomeScreen({ navigation, route }) {
             }}>
             <Button
               disabled={!request}
-              onPress={() => Alert.alert('', '[dev] 애플 로그인')}
+              onPress={() => Alert.alert('', '[dev] 카카오 로그인')}
               fill
               label={'카카오톡 아이디 로그인'}
               style={{ marginBottom: 8 }}></Button>
@@ -138,7 +137,9 @@ function HomeScreen({ navigation, route }) {
                 color={'#767676'}
                 style={{ textDecorationLine: 'underline' }}
                 onPress={() => {
-                  Linking.openURL('https://naver.com');
+                  Linking.openURL(
+                    'https://www.notion.so/0d1cde2a6a434fc985cb9a1a7e192d2f'
+                  );
                 }}>
                 개인정보처리방침
               </Text>{' '}
@@ -148,7 +149,9 @@ function HomeScreen({ navigation, route }) {
                 color={'#767676'}
                 style={{ textDecorationLine: 'underline' }}
                 onPress={() => {
-                  Linking.openURL('https://daum.net');
+                  Linking.openURL(
+                    'https://www.notion.so/0c65aea4959e43f9a9712dd7ad37f6e9'
+                  );
                 }}>
                 이용약관
               </Text>{' '}

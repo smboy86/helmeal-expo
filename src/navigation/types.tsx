@@ -6,10 +6,12 @@ export type LoginParamList = {
 // 1-2) 메인 네비게이터
 export type MainParamList = {
   MainBottom: undefined;
-  AppModal: undefined;
+  Details: undefined;
 };
 
 // 1-3) 바텀 네비게이터
 export type BottomTabParamList = {
   Home: undefined;
+  Routine: undefined;
+  MyPage: undefined;
 };

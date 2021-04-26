@@ -9,8 +9,8 @@ import LoadingBlur from '../basicComponents/LoadingBlur';
 import Text from '../basicComponents/Text';
 import Button from '../basicComponents/Button';
 import Layout from '../constants/Layout';
-import TextNanum from '../basicComponents/TextNanum';
 import Container from '../basicComponents/Container';
+import BoxPressable from '../basicComponents/BoxPressable';
 
 function LoginHomeScreen({ navigation, route }) {
   const refVideo = React.useRef(null);
@@ -24,7 +24,7 @@ function LoginHomeScreen({ navigation, route }) {
   return (
     <Container>
       <ContainerWithScroll safe>
-        <Box full>
+        {/* <Box full>
           <Video
             ref={refVideo}
             source={require('../assets/video/sample.mp4')}
@@ -58,7 +58,29 @@ function LoginHomeScreen({ navigation, route }) {
               people and technology.
             </Text>
           </Box>
-        </Box>
+        </Box> */}
+        <BoxPressable
+          onPress={() =>
+            navigation.navigate('Details', { screen: 'Subscribe' })
+          }>
+          <Text>구독하기</Text>
+        </BoxPressable>
+        <BoxPressable
+          onPress={() =>
+            navigation.navigate('Details', { screen: 'SubOption' })
+          }>
+          <Text>구독옵션선택</Text>
+        </BoxPressable>
+        <BoxPressable
+          onPress={() => navigation.navigate('Details', { screen: 'Address' })}>
+          <Text>배송지입력</Text>
+        </BoxPressable>
+        <BoxPressable
+          onPress={() =>
+            navigation.navigate('Details', { screen: 'SubComplete' })
+          }>
+          <Text>구독완료</Text>
+        </BoxPressable>
       </ContainerWithScroll>
     </Container>
   );

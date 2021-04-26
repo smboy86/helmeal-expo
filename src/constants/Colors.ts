@@ -1,4 +1,4 @@
-const tintColorLight = '#2f95dc';
+const tintColorLight = '#FC5C42';
 const tintColorDark = '#fff';
 
 export default {
@@ -7,7 +7,8 @@ export default {
     backgroundSoftYellowColor: '#FFFAEC',
     tint: tintColorLight,
     text: '#000000',
-    yellow: '#FACE56',
+    red: '#FACE56',
+    gray: '#767676',
     softYellow: '#FEF2D3',
     fontSoftBlack: '#363636',
   },

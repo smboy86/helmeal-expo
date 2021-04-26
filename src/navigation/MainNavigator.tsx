@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { MainParamList } from './types';
 import BottomTabNavigator from './BottomTabNavigator';
+import DetailsNavigator from './DetailsNavigator';
 
 const Root = createStackNavigator<MainParamList>();
 
@@ -16,13 +17,13 @@ export const MainNavigator = () => (
         elevation: 0,
       },
     }}>
-    <Root.Screen name="MainBottom" component={BottomTabNavigator} />
-    {/* <Root.Screen
-      name="AppModal"
-      component={TempMainModalScreen}
+    <Root.Screen name='MainBottom' component={BottomTabNavigator} />
+    <Root.Screen
+      name='Details'
+      component={DetailsNavigator}
       options={{
-        headerShown: true,
-        title: 'AppModal',
+        headerShown: false,
+        title: ' ',
         headerTitleStyle: {
           // fontFamily: 'NotoSansKR-Medium',
           fontSize: 15,
@@ -31,7 +32,7 @@ export const MainNavigator = () => (
         headerLeft: null,
         headerRight: null,
       }}
-    /> */}
+    />
   </Root.Navigator>
 );
 
