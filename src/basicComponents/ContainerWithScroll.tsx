@@ -47,7 +47,7 @@ const ContainerWithScroll: React.FunctionComponent<IProps> = (
         showsVerticalScrollIndicator={false}
         bounces={false}>
         {props.safe ? (
-          <SafeAreaView style={{ flex: 1 }}>
+          <SafeAreaView style={{ flex: 1, paddingTop: 0 }}>
             <ContentsWrap>{props.children}</ContentsWrap>
           </SafeAreaView>
         ) : (

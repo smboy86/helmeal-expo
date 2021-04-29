@@ -20,7 +20,7 @@ const Container = styled.View`
       alignItems: 'center',
     }}
   ${(props: IProps) =>
-    props.space && {
+    props.jBetween && {
       justifyContent: 'space-between',
     }}
   ${(props: IProps) =>
@@ -68,11 +68,11 @@ interface IProps extends ViewProps {
   row?: boolean;
   center?: boolean;
   jCenter?: boolean;
+  jBetween?: boolean;
+  jEnd?: boolean;
   aCenter?: boolean;
   right?: boolean;
-  jEnd?: boolean;
   aEnd?: boolean;
-  space?: boolean;
   border?: boolean;
   shadow?: boolean;
   test?: boolean;

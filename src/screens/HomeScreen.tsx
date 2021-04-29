@@ -62,24 +62,35 @@ function LoginHomeScreen({ navigation, route }) {
         <BoxPressable
           onPress={() =>
             navigation.navigate('Details', { screen: 'Subscribe' })
-          }>
-          <Text>구독하기</Text>
+          }
+          style={{ padding: 20 }}>
+          <Text>(x) 구독하기</Text>
         </BoxPressable>
         <BoxPressable
+          style={{ padding: 20 }}
           onPress={() =>
             navigation.navigate('Details', { screen: 'SubOption' })
           }>
-          <Text>구독옵션선택</Text>
+          <Text>(완료) 구독옵션선택</Text>
         </BoxPressable>
         <BoxPressable
+          style={{ padding: 20 }}
+          onPress={() =>
+            navigation.navigate('Details', { screen: 'SubOptionComplete' })
+          }>
+          <Text>(완료) 구독옵션선택 완료</Text>
+        </BoxPressable>
+        <BoxPressable
+          style={{ padding: 20 }}
           onPress={() => navigation.navigate('Details', { screen: 'Address' })}>
-          <Text>배송지입력</Text>
+          <Text>(x) 배송지입력</Text>
         </BoxPressable>
         <BoxPressable
+          style={{ padding: 20 }}
           onPress={() =>
             navigation.navigate('Details', { screen: 'SubComplete' })
           }>
-          <Text>구독완료</Text>
+          <Text>(x) 구독완료</Text>
         </BoxPressable>
       </ContainerWithScroll>
     </Container>

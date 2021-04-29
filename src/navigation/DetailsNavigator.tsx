@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import LoginHome from '../screens/LoginHomeScreen';
 import SubOptionScreen from '../screens/SubOptionScreen';
+import SubOptionCompleteScreen from '../screens/SubOptionCompleteScreen';
 import SubcribeScreen from '../screens/SubCompleteScreen';
 import SubCompleteScreen from '../screens/SubcribeScreen';
 import AddressScreen from '../screens/AddressScreen';
@@ -32,6 +33,13 @@ export const DetailsNavigator = () => (
       component={SubOptionScreen}
       options={{
         headerTitle: '구독 옵션 선택',
+      }}
+    />
+    <Stack.Screen
+      name='SubOptionComplete'
+      component={SubOptionCompleteScreen}
+      options={{
+        headerTitle: '구독 옵션 선택 완료',
       }}
     />
     <Stack.Screen
