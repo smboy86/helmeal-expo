@@ -22,8 +22,23 @@ import Button from '../basicComponents/Button';
 function SubOptionScreen({ navigation, route }) {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = React.useState(true);
-  const [selDayInfo, setSelDayInfo] = React.useState('요일 선택');
-  const [selSubInfo, setSelSubInfo] = React.useState('구독 기간 선택');
+
+  const [selDayInfo] = React.useState(route.params.day);
+  const [selSubInfo] = React.useState(route.params.subDate);
+
+  React.useEffect(() => {
+    console.log('day  :::   ', route.params.day);
+    console.log('subDate :::   ', route.params.subDate);
+  }, []);
+
+  const onMoveSubscribe = () => {
+    navigation.navigate('Details', {
+      screen: 'Subscribe',
+      params: {
+        address: '',
+      },
+    });
+  };
 
   return (
     <ContainerWithScroll>
@@ -52,7 +67,7 @@ function SubOptionScreen({ navigation, route }) {
                 borderBottomColor: '#EAEAEA',
               }}>
               <Text size={16} color={'#020202'}>
-                5일 - 월 / 화 / 수 / 목 / 금
+                {selDayInfo}
               </Text>
             </Box>
             <Box
@@ -62,7 +77,7 @@ function SubOptionScreen({ navigation, route }) {
                 borderBottomColor: '#EAEAEA',
               }}>
               <Text size={16} color={'#020202'}>
-                1주
+                {selSubInfo}
               </Text>
             </Box>
             <Box
@@ -109,9 +124,7 @@ function SubOptionScreen({ navigation, route }) {
         {/* bottom 버튼 */}
         <Box>
           <Button
-            onPress={() => {
-              Alert.alert('', '바로구매');
-            }}
+            onPress={onMoveSubscribe}
             fill
             label={'바로구매'}
             style={{

@@ -4,6 +4,7 @@ import { Pressable, PressableProps } from 'react-native';
 import styled from 'styled-components/native';
 import Colors from '../constants/Colors';
 import Layout from '../constants/Layout';
+import BoxPressable from './BoxPressable';
 import Text from './Text';
 
 const BtnBox = styled(Pressable)`
@@ -23,13 +24,30 @@ type PropsType = PressableProps & {
 };
 
 function Button(props: PropsType) {
-  const { label, fill, onPress } = props;
+  const { label, fill, disabled, onPress } = props;
   return (
-    <BtnBox {...props} onPress={onPress}>
-      <Text bold size={17} color={fill ? '#FFF' : Colors.default.text}>
-        {label}
-      </Text>
-    </BtnBox>
+    <>
+      {disabled ? (
+        <BoxPressable
+          onPress={() => null}
+          style={{
+            alignItems: 'center',
+            paddingVertical: 14,
+            backgroundColor: '#cccccc',
+            borderRadius: 8,
+          }}>
+          <Text bold size={17} color={fill ? '#FFF' : Colors.default.text}>
+            {label}
+          </Text>
+        </BoxPressable>
+      ) : (
+        <BtnBox {...props} onPress={onPress}>
+          <Text bold size={17} color={fill ? '#FFF' : Colors.default.text}>
+            {label}
+          </Text>
+        </BtnBox>
+      )}
+    </>
   );
 }
 

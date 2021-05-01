@@ -21,6 +21,15 @@ function LoginHomeScreen({ navigation, route }) {
     setIsLoading(false);
   }, []);
 
+  const onMoveRoutineDetail = () => {
+    navigation.navigate('Details', {
+      screen: 'RoutineDetail',
+      params: {
+        title: '헬밀 프로틴',
+      },
+    });
+  };
+
   return (
     <Container>
       <ContainerWithScroll safe>
@@ -59,12 +68,14 @@ function LoginHomeScreen({ navigation, route }) {
             </Text>
           </Box>
         </Box> */}
-        <BoxPressable
+        {/* ######################################################################## */}
+        {/* 퍼블리싱용 페이지 이동 */}
+        {/* <BoxPressable
           onPress={() =>
             navigation.navigate('Details', { screen: 'Subscribe' })
           }
           style={{ padding: 20 }}>
-          <Text>(x) 구독하기</Text>
+          <Text>(완료) 구독하기</Text>
         </BoxPressable>
         <BoxPressable
           style={{ padding: 20 }}
@@ -83,7 +94,7 @@ function LoginHomeScreen({ navigation, route }) {
         <BoxPressable
           style={{ padding: 20 }}
           onPress={() => navigation.navigate('Details', { screen: 'Address' })}>
-          <Text>(x) 배송지입력</Text>
+          <Text>(개발중) 배송지입력</Text>
         </BoxPressable>
         <BoxPressable
           style={{ padding: 20 }}
@@ -91,7 +102,23 @@ function LoginHomeScreen({ navigation, route }) {
             navigation.navigate('Details', { screen: 'SubComplete' })
           }>
           <Text>(x) 구독완료</Text>
-        </BoxPressable>
+        </BoxPressable> */}
+        {/* ######################################################################## */}
+        <Box full>
+          <Text>건강을 위해</Text>
+          <Text>시작한 운동,</Text>
+          <Text>합성첨가물에</Text>
+          <Text>빠져있진 않으신가요?</Text>
+        </Box>
+        <Box aCenter>
+          <Button
+            onPress={onMoveRoutineDetail}
+            fill
+            label={'메뉴보기'}
+            style={{
+              backgroundColor: '#FC5C42',
+            }}></Button>
+        </Box>
       </ContainerWithScroll>
     </Container>
   );

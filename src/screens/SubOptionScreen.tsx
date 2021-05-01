@@ -17,6 +17,8 @@ import Container from '../basicComponents/Container';
 import { login } from '../store/slices/TempSlice';
 import Collapsible from 'react-native-collapsible';
 import BoxPressable from '../basicComponents/BoxPressable';
+import { IcoArrowUp, IcoArrowDown } from '../constants/Svgs';
+// import { IcoUser, IcoRoutine, IcoHome } from '../constants/Svgs';
 
 function SubOptionCompleteScreen({ navigation, route }) {
   const dispatch = useDispatch();
@@ -27,6 +29,32 @@ function SubOptionCompleteScreen({ navigation, route }) {
   // temp
   const [collapsedDaySection, setCollapsedDaySection] = React.useState(false);
   const [collapsedSubSection, setCollapsedSubSection] = React.useState(true);
+
+  React.useEffect(() => {
+    // 구독기간 선택 후 화면 전환 & 선택 값 초기화 (시간차)
+    if (selSubInfo !== '구독 기간 선택') {
+      navigation.navigate('Details', {
+        screen: 'SubOptionComplete',
+        params: {
+          day: selDayInfo,
+          subDate: selSubInfo,
+        },
+      });
+    }
+
+    return () => {
+      setTimeout(() => {
+        initScreen();
+      }, 1000);
+    };
+  }, [selSubInfo]);
+
+  const initScreen = () => {
+    setSelDayInfo('요일 선택');
+    setSelSubInfo('구독 기간 선택');
+    setCollapsedDaySection(false);
+    setCollapsedSubSection(true);
+  };
 
   const onMoveHome = () => {
     dispatch(login({ isLogin: true }));
@@ -49,7 +77,11 @@ function SubOptionCompleteScreen({ navigation, route }) {
         break;
     }
 
+    // 1) 기존 메뉴 닫기
     setCollapsedDaySection(!collapsedDaySection);
+
+    // 2) 다음 메뉴 열기
+    setCollapsedSubSection(false);
   };
 
   const toggleSubExpanded = (type: string) => {
@@ -70,8 +102,6 @@ function SubOptionCompleteScreen({ navigation, route }) {
       default:
         break;
     }
-
-    setCollapsedSubSection(!collapsedSubSection);
   };
 
   return (
@@ -88,7 +118,8 @@ function SubOptionCompleteScreen({ navigation, route }) {
             marginBottom: 24,
           }}>
           <BoxPressable
-            onPress={() => toggleDayExpanded('')}
+            // onPress={() => toggleDayExpanded('')}
+            onPress={() => null}
             style={{
               paddingHorizontal: 16,
               paddingVertical: 11,
@@ -101,12 +132,12 @@ function SubOptionCompleteScreen({ navigation, route }) {
                 {selDayInfo}
               </Text>
               {collapsedDaySection ? (
-                <Box>
-                  <Text>열기</Text>
+                <Box jCenter>
+                  <IcoArrowUp />
                 </Box>
               ) : (
-                <Box>
-                  <Text>닫기</Text>
+                <Box jCenter>
+                  <IcoArrowDown />
                 </Box>
               )}
             </Box>
@@ -183,7 +214,8 @@ function SubOptionCompleteScreen({ navigation, route }) {
             marginBottom: 24,
           }}>
           <BoxPressable
-            onPress={() => toggleSubExpanded('')}
+            // onPress={() => toggleSubExpanded('')}
+            onPress={() => null}
             style={{
               paddingHorizontal: 16,
               paddingVertical: 11,
@@ -196,12 +228,12 @@ function SubOptionCompleteScreen({ navigation, route }) {
                 {selSubInfo}
               </Text>
               {collapsedSubSection ? (
-                <Box>
-                  <Text>열기</Text>
+                <Box jCenter>
+                  <IcoArrowUp />
                 </Box>
               ) : (
-                <Box>
-                  <Text>닫기</Text>
+                <Box jCenter>
+                  <IcoArrowDown />
                 </Box>
               )}
             </Box>

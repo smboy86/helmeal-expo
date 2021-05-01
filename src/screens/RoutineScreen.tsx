@@ -8,7 +8,7 @@ import Text from '../basicComponents/Text';
 import Container from '../basicComponents/Container';
 import { login } from '../store/slices/TempSlice';
 
-function SubCompleteScreen({ navigation, route }) {
+function RoutineScreen({ navigation, route }) {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = React.useState(true);
 
@@ -21,11 +21,11 @@ function SubCompleteScreen({ navigation, route }) {
     <Container>
       <ContainerWithScroll safe>
         <Box full>
-          <Text>구독완료</Text>
+          <Text>루틴 시작하기</Text>
         </Box>
       </ContainerWithScroll>
     </Container>
   );
 }
 
-export default SubCompleteScreen;
+export default RoutineScreen;

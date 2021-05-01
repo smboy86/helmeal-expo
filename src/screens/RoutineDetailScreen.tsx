@@ -2,14 +2,14 @@ import * as React from 'react';
 import { useDispatch } from 'react-redux';
 
 import Box from '../basicComponents/Box';
+import Colors from '../constants/Colors';
 import ContainerWithScroll from '../basicComponents/ContainerWithScroll';
 import Text from '../basicComponents/Text';
 import Container from '../basicComponents/Container';
 import { login } from '../store/slices/TempSlice';
-import Postcode from 'react-native-daum-postcode';
-import Layout from '../constants/Layout';
+import Button from '../basicComponents/Button';
 
-function AddressScreen({ navigation, route }) {
+function RoutineDetailScreen({ navigation, route }) {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = React.useState(true);
 
@@ -18,30 +18,28 @@ function AddressScreen({ navigation, route }) {
     // navigation.navigate('')
   };
 
-  const onSelctedAddress = (data: any) => {
-    console.log('aaaa  :: ', data);
-    navigation.navigate('Details', {
-      screen: 'Subscribe',
-      params: {
-        address: data.address,
-      },
-    });
+  const onMoveSubscribe = () => {
+    navigation.navigate('Details', { screen: 'SubOption' });
   };
 
   return (
     <Container>
       <ContainerWithScroll>
-        <Postcode
-          style={{
-            width: Layout.window.width,
-            height: Layout.window.height,
-          }}
-          jsOptions={{ animated: true }}
-          onSelected={(data) => onSelctedAddress(data)}
-        />
+        <Box full>
+          <Text>제목상세페이지</Text>
+        </Box>
+        <Box aCenter>
+          <Button
+            onPress={onMoveSubscribe}
+            fill
+            label={'루틴 시작하기'}
+            style={{
+              backgroundColor: '#FC5C42',
+            }}></Button>
+        </Box>
       </ContainerWithScroll>
     </Container>
   );
 }
 
-export default AddressScreen;
+export default RoutineDetailScreen;

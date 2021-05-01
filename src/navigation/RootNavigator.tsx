@@ -47,7 +47,8 @@ export default function RootNavigator() {
 
   return (
     <NavigationContainer>
-      {!tempStore.isLogin ? <LoginNavigator /> : <MainNavigator />}
+      {/* {!tempStore.isLogin ? <LoginNavigator /> : <MainNavigator />} */}
+      <MainNavigator />
     </NavigationContainer>
   );
 }

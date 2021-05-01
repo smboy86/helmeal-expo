@@ -4,9 +4,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LoginHome from '../screens/LoginHomeScreen';
 import SubOptionScreen from '../screens/SubOptionScreen';
 import SubOptionCompleteScreen from '../screens/SubOptionCompleteScreen';
-import SubcribeScreen from '../screens/SubCompleteScreen';
-import SubCompleteScreen from '../screens/SubcribeScreen';
+import SubcribeScreen from '../screens/SubcribeScreen';
+import SubCompleteScreen from '../screens/SubCompleteScreen';
 import AddressScreen from '../screens/AddressScreen';
+import RoutineDetailScreen from '../screens/RoutineDetailScreen';
 
 const Stack = createStackNavigator();
 
@@ -21,6 +22,13 @@ export const DetailsNavigator = () => (
       headerShown: true,
       headerBackTitle: ' ',
     }}>
+    <Stack.Screen
+      name='RoutineDetail'
+      component={RoutineDetailScreen}
+      options={({ route }) => ({
+        headerTitle: route.params.title,
+      })}
+    />
     <Stack.Screen
       name='Subscribe'
       component={SubcribeScreen}
