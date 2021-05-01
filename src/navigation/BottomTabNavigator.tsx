@@ -15,8 +15,8 @@ import { IcoUser, IcoRoutine, IcoHome } from '../constants/Svgs';
 import Box from '../basicComponents/Box';
 import Text from '../basicComponents/Text';
 import Layout from '../constants/Layout';
-import RoutineScreen from '../screens/SubCompleteScreen';
 import MyPageScreen from '../screens/MyPageScreen';
+import RoutineScreen from '../screens/RoutineScreen';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
