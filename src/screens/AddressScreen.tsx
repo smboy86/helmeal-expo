@@ -23,7 +23,9 @@ function AddressScreen({ navigation, route }) {
     navigation.navigate('Details', {
       screen: 'Subscribe',
       params: {
-        address: data.address,
+        address: `${data.address} ${
+          data.buildingName !== '' ? '(' + data.buildingName + ')' : ''
+        }`,
       },
     });
   };
