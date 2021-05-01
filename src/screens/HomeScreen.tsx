@@ -104,13 +104,14 @@ function LoginHomeScreen({ navigation, route }) {
           <Text>(x) 구독완료</Text>
         </BoxPressable> */}
         {/* ######################################################################## */}
+        {/* <Box style={{ flex: 1 }}> */}
         <Box full>
           <Text>건강을 위해</Text>
           <Text>시작한 운동,</Text>
           <Text>합성첨가물에</Text>
           <Text>빠져있진 않으신가요?</Text>
         </Box>
-        <Box aCenter>
+        <Box aCenter style={{ marginBottom: 100 }}>
           <Button
             onPress={onMoveRoutineDetail}
             fill

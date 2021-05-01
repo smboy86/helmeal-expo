@@ -71,7 +71,10 @@ function HomeScreen({ navigation, route }) {
             [
               {
                 text: '확인',
-                onPress: () => dispatch(login({ isLogin: true })),
+                onPress: () => {
+                  dispatch(login({ isLogin: true }));
+                  navigation.goBack();
+                },
               },
             ],
             { cancelable: false }
@@ -105,13 +108,13 @@ function HomeScreen({ navigation, route }) {
             }}>
             <Button
               disabled={!request}
-              onPress={() => Alert.alert('', '[dev] 카카오 로그인')}
+              onPress={() => Alert.alert('', '[개발중] 카카오 로그인')}
               fill
               label={'카카오톡 아이디 로그인'}
               style={{ marginBottom: 8 }}></Button>
             <Button
               disabled={!request}
-              onPress={() => Alert.alert('', '[dev] 애플 로그인')}
+              onPress={() => Alert.alert('', '[개발중] 애플 로그인')}
               fill
               label={'애플 아이디 로그인'}
               style={{ marginBottom: 8 }}></Button>

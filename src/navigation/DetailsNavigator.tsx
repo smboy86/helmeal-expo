@@ -23,6 +23,14 @@ export const DetailsNavigator = () => (
       headerBackTitle: ' ',
     }}>
     <Stack.Screen
+      name='Login'
+      component={LoginHome}
+      options={{
+        headerShown: false,
+        // headerTitle: '로그인',
+      }}
+    />
+    <Stack.Screen
       name='RoutineDetail'
       component={RoutineDetailScreen}
       options={({ route }) => ({
